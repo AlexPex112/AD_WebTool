@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Directory Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ad_dashboard.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Active Directory</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-tab="dashboard">Dashboard</a>
+                <a href="#" class="nav-item" data-tab="users">Users</a>
+                <a href="#" class="nav-item" data-tab="groups">Groups</a>
+                <a href="#" class="nav-item" data-tab="computers">Computers</a>
+                <a href="{{ url_for('dashboard') }}" class="nav-item">Back to Dashboard</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <section id="dashboard-tab" class="tab-content active">
+                <header class="main-header">
+                    <h1>Active Directory Overview</h1>
+                    <p class="last-updated">Last updated: <span id="last-update-time">Loading...</span></p>
+                </header>
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <h2 id="user-count">Loading...</h2>
+                        <p>Users</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="group-count">Loading...</h2>
+                        <p>Groups</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="computer-count">Loading...</h2>
+                        <p>Computers</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="domain-controller-count">Loading...</h2>
+                        <p>Domain Controllers</p>
+                    </div>
+                </section>
+                <div class="data-preview">
+                    <h3>Quick Overview</h3>
+                    <div class="data-tabs">
+                        <button class="data-tab active" data-target="users-preview">Users</button>
+                        <button class="data-tab" data-target="groups-preview">Groups</button>
+                        <button class="data-tab" data-target="computers-preview">Computers</button>
+                    </div>
+                    <div class="data-panels">
+                        <div id="users-preview" class="data-panel active">
+                            <table class="preview-table">
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Status</th>
+    </tr>
+</thead>
+<tbody>
+    <!-- Populated by JavaScript -->
+    <tr>
+        <td colspan="4" class="loading-message">Loading user data...</td>
+    </tr>
+</tbody>
+                            </table>
+                        </div>
+                        <div id="groups-preview" class="data-panel">
+                            <table class="preview-table">
+                                <thead>
+                                    <tr>
+                                        <th>Group Name</th>
+                                        <th>Description</th>
+                                        <th>Members</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JavaScript -->
+                                    <tr>
+                                        <td colspan="3" class="loading-message">Loading group data...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="computers-preview" class="data-panel">
+                            <table class="preview-table">
+                                <thead>
+                                    <tr>
+                                        <th>Computer Name</th>
+                                        <th>IP Address</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JavaScript -->
+                                    <tr>
+                                        <td colspan="3" class="loading-message">Loading computer data...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Tab -->
+            <section id="users-tab" class="tab-content">
+                <header class="main-header">
+                    <h1>Manage Users</h1>
+                </header>
+                <div class="actions-bar">
+                    <button class="btn-primary" id="add-user-btn">Add User</button>
+                    <div class="search-container">
+                        <input type="text" id="users-search" placeholder="Search users..." class="search-input">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div id="users-loading" class="loading-message" style="display: none;">Loading all users...</div>
+                    <table class="data-table" id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- User data will be dynamically loaded -->
+                            <tr>
+                                <td colspan="5" class="loading-message">Loading users...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Groups Tab -->
+            <section id="groups-tab" class="tab-content">
+                <header class="main-header">
+                    <h1>Manage Groups</h1>
+                </header>
+                <div class="actions-bar">
+                    <button class="btn-primary" id="add-group-btn">Add Group</button>
+                    <div class="search-container">
+                        <input type="text" id="groups-search" placeholder="Search groups..." class="search-input">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div id="groups-loading" class="loading-message" style="display: none;">Loading all groups...</div>
+                    <table class="data-table" id="groups-table">
+                        <thead>
+                            <tr>
+                                <th>Group Name</th>
+                                <th>Description</th>
+                                <th>Members</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Group data will be dynamically loaded -->
+                            <tr>
+                                <td colspan="4" class="loading-message">Loading groups...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Computers Tab -->
+            <section id="computers-tab" class="tab-content">
+                <header class="main-header">
+                    <h1>Computers</h1>
+                </header>
+                <div class="actions-bar">
+                    <div class="search-container">
+                        <input type="text" id="computers-search" placeholder="Search computers..." class="search-input">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="computers-table">
+                        <thead>
+                            <tr>
+                                <th>Computer Name</th>
+                                <th>IP Address</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Computer data will be dynamically loaded -->
+                            <tr>
+                                <td colspan="3" class="loading-message">Loading computers...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div class="modal" id="reset-password-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Reset User Password</h2>
+            <form id="reset-password-form">
+                <div class="form-group">
+                    <label for="reset-username">Username:</label>
+                    <input type="text" id="reset-username" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">New Password:</label>
+                    <input type="password" id="new-password" required>
+                    <div class="password-toggle">
+                        <img src="{{ url_for('static', filename='img/eye.svg') }}" alt="Toggle password visibility">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-new-password">Confirm Password:</label>
+                    <input type="password" id="confirm-new-password" required>
+                    <div class="password-toggle">
+                        <img src="{{ url_for('static', filename='img/eye.svg') }}" alt="Toggle password visibility">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Reset Password</button>
+                <div id="reset-password-result" class="message"></div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Toggle User Status Modal -->
+    <div class="modal" id="toggle-user-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Change User Status</h2>
+            <form id="toggle-user-form">
+                <div class="form-group">
+                    <label for="toggle-username">Username:</label>
+                    <input type="text" id="toggle-username" readonly>
+                </div>
+                <div class="form-group">
+                    <p>Current Status: <span id="current-status">Unknown</span></p>
+                </div>
+                <div class="form-group">
+                    <p>Change status to:</p>
+                    <div class="radio-group">
+                        <input type="radio" id="enable-user" name="toggle-action" value="enable">
+                        <label for="enable-user">Enable</label>
+                        
+                        <input type="radio" id="disable-user" name="toggle-action" value="disable">
+                        <label for="disable-user">Disable</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Change Status</button>
+                <div id="toggle-user-result" class="message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Templates -->
+    <div class="modal" id="add-user-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add New User</h2>
+            <form id="add-user-form">
+                <div class="form-group">
+                    <label for="new-username">Username:</label>
+                    <input type="text" id="new-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-firstname">First Name:</label>
+                    <input type="text" id="new-firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-lastname">Last Name:</label>
+                    <input type="text" id="new-lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-email">Email:</label>
+                    <input type="email" id="new-email">
+                </div>
+<div class="form-group">
+    <label for="new-user-password">Password:</label>
+    <div class="password-container">
+        <input type="password" id="new-user-password" required>
+        <img src="{{ url_for('static', filename='img/eye.svg') }}" alt="Toggle Password" class="toggle-password" id="toggle-password-icon">
+    </div>
+</div>
+                <button type="submit" class="btn-primary">Create User</button>
+                <div id="add-user-result" class="message"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Group Members Modal -->
+    <div class="modal" id="group-members-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Group Members: <span id="group-name-display"></span></h2>
+            <div id="members-list" class="members-container">
+                <!-- Populated by JavaScript -->
+                <p>Loading members...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="loader-overlay" id="page-loader">
+        <div class="loader"></div>
+        <p>Loading data...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ad_dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tab-controller.js') }}"></script>
+</body>
+</html>
