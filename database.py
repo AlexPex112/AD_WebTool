@@ -4,10 +4,10 @@ from flask import g, current_app
 
 # Datenbankverbindungsdaten
 DB_CONFIG = {
-    'host': 'localhost',
-    'database': 'authdata',
-    'user': 'Admin',
-    'password': 'root@master123',
+    'host': 'hostname',
+    'database': 'db name',
+    'user': 'username',
+    'password': 'password',
     'auth_plugin': 'mysql_native_password'  # Verwende Standard-Authentifizierung
 }
 
