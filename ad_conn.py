@@ -9,10 +9,10 @@ from ldap3.core.exceptions import LDAPException, LDAPBindError, LDAPEntryAlready
 class ActiveDirectoryManager:
     def __init__(self, domain_controller=None, domain=None, username=None, password=None):
         """Initialize AD connection manager with credentials"""
-        self.domain_controller = domain_controller or os.environ.get('AD_DOMAIN_CONTROLLER', 'dc01.test.local')
-        self.domain = domain or os.environ.get('AD_DOMAIN', 'test.local')
-        self.username = username or os.environ.get('AD_USERNAME', 'TEST\\Administrator')
-        self.password = password or os.environ.get('AD_PASSWORD', 'root@master123')
+        self.domain_controller = domain_controller or os.environ.get('AD_DOMAIN_CONTROLLER', 'name.domain.domain')
+        self.domain = domain or os.environ.get('AD_DOMAIN', 'domain.domain')
+        self.username = username or os.environ.get('AD_USERNAME', 'domain\\Usernamen')
+        self.password = password or os.environ.get('AD_PASSWORD', 'password')
         self.conn = None
         self.server = None
         
