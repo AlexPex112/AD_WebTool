@@ -29,10 +29,17 @@ A complete AD Remote system with HTML, CSS, and JavaScript frontend and Python b
 3. Open your browser and navigate to `http://localhost:5000`
 
 ## Preview :
+### Login
 ![Login](Preview/Login.png)
+### Register
 ![Register](Preview/Register.png)
+### Dashboard
 ![Dashboard](Preview/Dashboard.png)
+### User Conroll
 ![User Conroll](Preview/User_Controll.png)
+### View Groups
 ![View Groups](Preview/View_Groups.png)
+### View Group Members
 ![View Groups Members](Preview/Group_Members.png)
+### View Computers
 ![View Computers](Preview/View_Computers.png)
